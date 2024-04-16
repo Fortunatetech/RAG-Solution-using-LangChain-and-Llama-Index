@@ -4,6 +4,9 @@ python-dotenv==1.0.1
 pypdf==4.1.0
 flask==3.0.2
 
+docx
+PyPDF2
+
 chromadb==0.4.24
 sentence-transformers==2.5.1
 sentence-splitter
@@ -11,4 +14,12 @@ pydantic==1.10.11
 
 langchain 
 langchain-community
+langchain-google-vertexai
 langchain-openai
+google-generativeai 
+llama-index-vector-stores-chroma
+
+pandas
+#textract
+beautifulsoup4
+mysql-connector-python

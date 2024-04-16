@@ -1,0 +1,40 @@
+## Data Sources
+* JSON: Contains structured product specifications from our inventory system.
+* CSV: Article exports from our internal content management system.
+* PDF, DOCX: Technical reports and product manuals.
+* TXT: Transcripts of customer support calls (need to experiment with cleaning on these).
+* Database: Connects to our 'knowledge_base' table containing approved FAQ entries.
+* Webscraper: Targets the 'tech_blog' section of our company website.
+
+## Upload Configuration
+* temp_folder: Temporary holding area for uploaded files.
+* allowed_extensions: Limits file types for security reasons.
+* auth_method: Using basic authentication for now. To be replaced with OAuth2 for production.
+* credentials: Temporary - will move to environment variables or a secrets vault.
+
+## Preprocessing
+* default_cleaning: Enables basic normalization (lowercase, basic punctuation removal).
+* source_overrides: To be populated as we analyze noise patterns in the data.
+
+## Indexing
+* update_mode: Incremental updates are suitable for our use case.
+* update_trigger: Upload-triggered updates to keep the index fresh. 
+* schedule: Not used currently, might use hourly if scheduled updates are preferable. 
+
+ //{ "type": "json", "path": "data/documents.json" },
+        //{ "type": "csv", "path": "data/articles.csv", "text_column": "content", "metadata_columns": ["author", "source"] },
+
+{
+            "type": "database",
+            "connection_params": {
+                "host": "${DB_HOST}",
+                "port": 3306, 
+                "database": "your_db_name",
+                "user": "${DB_USERNAME}",
+                "password": "${DB_PASSWORD}" 
+            },
+            "query": "SELECT article_title, article_body FROM articles", 
+            "text_column": "article_body",
+            "metadata_columns": ["article_title"]
+        },
+        { "type": "webscraper", "url": "https://example.com/tech_blog/", "text_selector": "article p" }

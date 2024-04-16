@@ -1,0 +1,27 @@
+{
+    "data_sources": [
+        { "type": "pdf", "path": "data/pdf_genquiz.pdf" },
+        { "type": "docx", "path": "data/docx_genquiz.docx" },
+        { "type": "txt", "path": "data/txt_genquiz.txt" }        
+    ],
+
+    "upload_config": {
+        "temp_folder": "./data/uploads/",
+        "allowed_extensions": [".txt", ".pdf", ".docx"], 
+        "auth_method": "basic_auth", 
+        "credentials": { 
+            "username": "admin", 
+            "password": "strongpassword" 
+        } 
+    },
+    "preprocessing": {
+        "default_cleaning": true,
+        "source_overrides": {
+        }
+    },
+    "indexing": {
+        "update_mode": "incremental", 
+        "update_trigger": "on_upload", 
+        "schedule": "hourly" 
+    }
+}
